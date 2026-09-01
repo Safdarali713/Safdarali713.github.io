@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safdar Ali Soomro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12181F;
+    --bg-panel:#171F28;
+    --line:#2A3540;
+    --ink:#EDEAE3;
+    --ink-dim:#9CA8B4;
+    --copper:#C87941;
+    --copper-dim:#8F5A32;
+    --teal:#5C8374;
+    --maxw:920px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Archivo', sans-serif;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  /* corner-bracket blueprint frame */
+  .frame{
+    position:relative;
+    border:1px solid var(--line);
+  }
+  .frame::before, .frame::after{
+    content:"";
+    position:absolute;
+    width:14px; height:14px;
+    border:1.5px solid var(--copper);
+  }
+  .frame::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .frame::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+
+  .tag{
+    font-size:12.5px;
+    color:var(--copper);
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    letter-spacing:0.04em;
+  }
+  .ref{
+    font-size:12px;
+    color:var(--ink-dim);
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* HEADER */
+  header{
+    padding:20px 0;
+    border-bottom:1px solid var(--line);
+  }
+  header .wrap{
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .logo{
+    font-family:'Archivo', sans-serif;
+    font-weight:800;
+    font-size:17px;
+  }
+  .logo span{color:var(--copper);}
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:28px;
+  }
+  nav a{
+    text-decoration:none;
+    font-size:14px;
+    color:var(--ink-dim);
+    transition:color .2s;
+  }
+  nav a:hover{color:var(--ink);}
+
+  /* HERO */
+  .hero{
+    padding:88px 0 72px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:40px;
+    align-items:start;
+  }
+  .hero h1{
+    font-size:clamp(38px, 6vw, 64px);
+    line-height:1.04;
+    max-width:9ch;
+  }
+  .hero .role{
+    margin-top:18px;
+    font-size:18px;
+    color:var(--ink-dim);
+    max-width:44ch;
+  }
+  .hero .role strong{color:var(--copper); font-weight:600;}
+  .hero-meta{
+    text-align:right;
+    padding-top:10px;
+  }
+  .hero-meta .ref{display:block; margin-bottom:6px;}
+  .hero-actions{
+    margin-top:34px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-block;
+    padding:11px 20px;
+    font-size:14px;
+    font-weight:600;
+    text-decoration:none;
+    border:1px solid var(--line);
+    color:var(--ink);
+    transition:border-color .2s, color .2s;
+  }
+  .btn.primary{
+    background:var(--copper);
+    border-color:var(--copper);
+    color:#12181F;
+  }
+  .btn.primary:hover{background:#DA8A4E;}
+  .btn:not(.primary):hover{border-color:var(--copper); color:var(--copper);}
+
+  /* circuit trace divider */
+  .trace{
+    height:48px;
+    width:100%;
+  }
+
+  /* SECTION shell */
+  section{padding:56px 0;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:34px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+  }
+  .section-head h2{font-size:22px;}
+  .section-head .ref{margin-left:auto;}
+
+  /* ABOUT */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:48px;
+  }
+  .about-grid p{margin-bottom:16px; color:var(--ink-dim); max-width:56ch;}
+  .about-grid p strong{color:var(--ink); font-weight:600;}
+  .stat-list{border-left:1px solid var(--line); padding-left:24px;}
+  .stat-list div{padding:14px 0; border-bottom:1px solid var(--line);}
+  .stat-list div:last-child{border-bottom:none;}
+  .stat-list .k{font-size:12px; color:var(--copper); font-weight:600; letter-spacing:.03em;}
+  .stat-list .v{font-size:15px; margin-top:4px;}
+
+  /* SKILLS */
+  .skill-cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+  }
+  .skill-col h3{
+    font-size:14px;
+    color:var(--teal);
+    margin-bottom:16px;
+    font-weight:600;
+    font-family:'Inter', sans-serif;
+  }
+  .skill-col ul{list-style:none;}
+  .skill-col li{
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+    display:flex;
+    justify-content:space-between;
+  }
+  .skill-col li:last-child{border-bottom:none;}
+  .skill-col li span.n{color:var(--ink-dim); font-size:13px;}
+
+  /* PROJECTS */
+  .proj{
+    padding:26px 0;
+    border-bottom:1px solid var(--line);
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:24px;
+  }
+  .proj:last-child{border-bottom:none;}
+  .proj .pnum{font-family:'Archivo',sans-serif; font-size:13px; color:var(--copper); font-weight:700;}
+  .proj h3{font-size:18px; margin-bottom:8px;}
+  .proj p{color:var(--ink-dim); max-width:60ch; margin-bottom:10px;}
+  .proj .stack{font-size:12.5px; color:var(--teal); letter-spacing:.02em;}
+
+  /* CONTACT */
+  .contact-panel{
+    padding:40px;
+    text-align:left;
+  }
+  .contact-panel h2{font-size:26px; margin-bottom:12px; max-width:16ch;}
+  .contact-panel p{color:var(--ink-dim); max-width:50ch; margin-bottom:26px;}
+  .contact-links{display:flex; gap:16px; flex-wrap:wrap;}
+
+  footer{
+    padding:28px 0 40px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    color:var(--ink-dim);
+    font-size:13px;
+  }
+
+  @media (max-width:720px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-meta{text-align:left;}
+    .about-grid, .skill-cols{grid-template-columns:1fr;}
+    .proj{grid-template-columns:1fr;}
+    nav ul{gap:16px;}
+    .hero{padding:56px 0 40px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">SAFDAR ALI <span>SOOMRO</span></div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="tag">ELECTRICAL ENGINEERING — POWER SYSTEMS</span>
+      <h1 style="margin-top:14px;">Safdar Ali Soomro</h1>
+      <p class="role">Electrical Engineering student at <strong>Sukkur IBA University</strong>, specializing in Power. Builds AI agents and backend systems on the side — Python, FastAPI, and the occasional circuit simulation.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn primary">View Work</a>
+        <a href="#contact" class="btn">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <span class="ref">BASED IN</span>
+      <span class="ref">Pano Aqil, Sindh, Pakistan</span>
+    </div>
+  </div>
+  <svg class="trace" viewBox="0 0 920 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 24 H300 L320 4 H600 L620 44 H920" fill="none" stroke="#2A3540" stroke-width="1"/>
+    <circle cx="320" cy="4" r="3" fill="#C87941"/>
+    <circle cx="620" cy="44" r="3" fill="#5C8374"/>
+  </svg>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+      <span class="ref">FIG. 01</span>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>Currently two years into a <strong>BE in Electrical Engineering</strong> at Sukkur IBA University, with a focus on <strong>Power</strong>. Alongside coursework, I build practical software — mainly AI agents and backend systems — and take on freelance work to support my studies and household.</p>
+        <p>My ambitions run in a few directions at once: I want to grow as an engineer, earn independently through freelancing, and stay open to opportunities that combine both — including international internships and eventually work abroad.</p>
+      </div>
+      <div class="stat-list">
+        <div>
+          <div class="k">EDUCATION</div>
+          <div class="v">BE Electrical Engineering, Sukkur IBA University — Power specialization, 2 years completed</div>
+        </div>
+        <div>
+          <div class="k">LOCATION</div>
+          <div class="v">Pano Aqil, near Sukkur, Sindh</div>
+        </div>
+        <div>
+          <div class="k">FOCUS</div>
+          <div class="v">Power systems · AI agents · Backend development</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Skills</h2>
+      <span class="ref">FIG. 02</span>
+    </div>
+    <div class="skill-cols">
+      <div class="skill-col">
+        <h3>ENGINEERING &amp; SIMULATION</h3>
+        <ul>
+          <li>Circuit analysis &amp; problem-solving <span class="n">core</span></li>
+          <li>Multisim <span class="n">simulation</span></li>
+          <li>LabVIEW <span class="n">simulation</span></li>
+          <li>ANSYS <span class="n">simulation</span></li>
+          <li>MATLAB <span class="n">modeling</span></li>
+          <li>AutoCAD <span class="n">design</span></li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>SOFTWARE &amp; AI</h3>
+        <ul>
+          <li>Python <span class="n">backend</span></li>
+          <li>FastAPI <span class="n">backend</span></li>
+          <li>AI agent development <span class="n">applied</span></li>
+          <li>Freelance content &amp; delivery <span class="n">Upwork / Fiverr</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected Work</h2>
+      <span class="ref">FIG. 03</span>
+    </div>
+
+    <div class="proj">
+      <div class="pnum">01</div>
+      <div>
+        <h3>WhatsApp AI Sales Agent</h3>
+        <p>A backend-driven AI sales agent built to handle customer conversations over WhatsApp — designed for automated lead engagement and response handling.</p>
+        <div class="stack">PYTHON · FASTAPI · AI AGENTS</div>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="pnum">02</div>
+      <div>
+        <h3>Voice AI Agent — Dental Clinic</h3>
+        <p>A Twilio-based voice AI agent for automated appointment booking at a dental clinic, exploring voice-driven scheduling workflows.</p>
+        <div class="stack">TWILIO · VOICE AI · PYTHON</div>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="pnum">03</div>
+      <div>
+        <h3>Freelance Practice</h3>
+        <p>Set up as an AI Content Writer on Upwork, with a parallel presence on Fiverr — building freelance income alongside university coursework.</p>
+        <div class="stack">UPWORK · FIVERR · CONTENT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-panel frame">
+      <span class="tag">GET IN TOUCH</span>
+      <h2 style="margin-top:14px;">Open to freelance work, internships, and engineering opportunities.</h2>
+      <p>Reach out for backend/AI project collaborations, power systems work, or anything in between.</p>
+      <div class="contact-links">
+        <a href="mailto:your@email.com" class="btn primary">Email Me</a>
+        <a href="#" class="btn">LinkedIn</a>
+        <a href="#" class="btn">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+    <span>© 2026 Safdar Ali Soomro</span>
+    <span>Sukkur, Sindh, Pakistan</span>
+  </div>
+</footer>
+
+</body>
+</html>
