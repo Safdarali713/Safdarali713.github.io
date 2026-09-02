@@ -1,0 +1,37 @@
+title: Safdar Ali Soomro
+description: "Electrical Engineering student at Sukkur IBA University, building AI agents and backend systems."
+url: "https://safdarali713.github.io"
+baseurl: ""
+lang: en
+
+# GitHub Pages builds Jekyll automatically with no Gemfile needed.
+# These plugins are all on GitHub Pages' whitelist, so no extra setup is required.
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# every blog post gets a clean, SEO-friendly URL like:
+# https://safdarali713.github.io/blog/ai-tools-for-engineering-students/
+permalink: /blog/:slug/
+
+collections:
+  posts:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      image: "/images/blog/default-cover.jpg"
+
+# Files/folders Jekyll should leave alone / not try to build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+
+# index.html has no front matter, so Jekyll copies it through untouched —
+# your existing portfolio design is not affected by any of the above.
