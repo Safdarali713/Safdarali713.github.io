@@ -1,0 +1,41 @@
+backend:
+  name: github
+  repo: safdarali713/safdarali713.github.io   # your GitHub username/repo
+  branch: main
+  # ⚠️ REPLACE the line below with YOUR Cloudflare Worker URL from Step 4 of the setup guide.
+  # Example: base_url: https://decap-proxy.safdarali713.workers.dev
+  base_url: https://YOUR-PROXY-URL.workers.dev
+  auth_endpoint: /auth
+
+# Draft → review → publish workflow.
+# "Save" = draft. "Ready for review" = opens a GitHub Pull Request.
+# "Publish" = merges the PR, which makes GitHub Pages rebuild the live site.
+publish_mode: editorial_workflow
+
+media_folder: "images/blog"   # images uploaded from the CMS are saved here
+public_folder: "/images/blog" # and referenced with this public URL path
+
+collections:
+  - name: "posts"
+    label: "Blog Articles"
+    label_singular: "Article"
+    folder: "_posts"
+    create: true
+    delete: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "blog/{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "URL Slug", name: "slug", widget: "string", hint: "Used in the article's web address, e.g. ai-tools-for-engineering-students" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured Image", name: "image", widget: "image", media_folder: "/images/blog", public_folder: "/images/blog" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["General", "Electrical Engineering", "AI & Automation", "Backend Development", "Freelancing"]
+        default: "General"
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Excerpt / Short Description", name: "excerpt", widget: "text", hint: "Shown on the blog listing page and used as the default meta description" }
+      - { label: "SEO Title", name: "seo_title", widget: "string", required: false, hint: "Leave blank to reuse the Title" }
+      - { label: "SEO Description", name: "seo_description", widget: "text", required: false, hint: "Leave blank to reuse the Excerpt" }
+      - { label: "Article Content", name: "body", widget: "markdown" }

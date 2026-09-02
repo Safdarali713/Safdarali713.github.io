@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/assets/blog.css' | relative_url }}">
+
+<title>{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }} · Safdar Ali Soomro{% endif %}</title>
+<meta name="description" content="{% if page.seo_description %}{{ page.seo_description }}{% else %}{{ page.excerpt | strip_html | truncate: 155 }}{% endif %}">
+
+<!-- jekyll-seo-tag fills in canonical URL, Open Graph, Twitter Card, and JSON-LD automatically -->
+{% assign seo_desc = page.seo_description | default: page.excerpt | strip_html | truncate: 155 %}
+{% seo title=false description=seo_desc %}
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="{{ '/' | relative_url }}" class="logo">SAFDAR ALI <span>SOOMRO</span></a>
+    <nav>
+      <ul>
+        <li><a href="{{ '/#about' | relative_url }}">About</a></li>
+        <li><a href="{{ '/#skills' | relative_url }}">Skills</a></li>
+        <li><a href="{{ '/#work' | relative_url }}">Work</a></li>
+        <li><a href="{{ '/blog/' | relative_url }}" class="active">Blog</a></li>
+        <li><a href="{{ '/#contact' | relative_url }}">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="post-header">
+  <div class="wrap">
+    {% if page.category %}<span class="cat">{{ page.category }}</span>{% endif %}
+    <h1>{{ page.title }}</h1>
+    <div class="post-meta">
+      <span>{{ page.date | date: "%B %-d, %Y" }}</span>
+      {% assign words = content | number_of_words %}
+      <span>{{ words | divided_by: 200 | at_least: 1 }} min read</span>
+    </div>
+    {% if page.image %}
+      <img class="post-cover" src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+    {% endif %}
+  </div>
+</section>
+
+<article class="wrap">
+  <div class="post-body">
+    {{ content }}
+
+    {% if page.tags and page.tags.size > 0 %}
+    <div class="post-tags">
+      {% for t in page.tags %}<span class="pill">{{ t }}</span>{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</article>
+
+<div class="wrap">
+  <div class="post-nav">
+    <a href="{{ '/blog/' | relative_url }}" class="btn">← All Articles</a>
+    <a href="{{ '/#contact' | relative_url }}" class="btn primary">Get in Touch</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+    <span>© {{ 'now' | date: "%Y" }} Safdar Ali Soomro</span>
+    <span>Sindh, Pakistan</span>
+  </div>
+</footer>
+
+</body>
+</html>
