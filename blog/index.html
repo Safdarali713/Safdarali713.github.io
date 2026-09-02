@@ -1,17 +1,153 @@
---- title: Blog permalink: /blog/ description: "Notes on electrical engineering, AI agents, backend development, and freelancing — from Safdar Ali Soomro." ---
-SAFDAR ALI SOOMRO
-About
-Skills
-Work
-Blog
-Contact
-WRITING
-Blog
-{{ page.description }}
+---
+title: Blog
+permalink: /blog/
+description: "Notes on electrical engineering, AI agents, backend development, and freelancing — from Safdar Ali Soomro."
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/assets/blog.css' | relative_url }}">
+<title>Blog · Safdar Ali Soomro</title>
+<meta name="description" content="{{ page.description }}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<meta property="og:title" content="Blog · Safdar Ali Soomro">
+<meta property="og:description" content="{{ page.description }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+</head>
+<body>
 
-Search articles…
- 
-All categories
-Load More
-© {{ 'now' | date: "%Y" }} Safdar Ali Soomro
-Sindh, Pakistan
+<header>
+  <div class="wrap">
+    <a href="{{ '/' | relative_url }}" class="logo">SAFDAR ALI <span>SOOMRO</span></a>
+    <nav>
+      <ul>
+        <li><a href="{{ '/#about' | relative_url }}">About</a></li>
+        <li><a href="{{ '/#skills' | relative_url }}">Skills</a></li>
+        <li><a href="{{ '/#work' | relative_url }}">Work</a></li>
+        <li><a href="{{ '/blog/' | relative_url }}" class="active">Blog</a></li>
+        <li><a href="{{ '/#contact' | relative_url }}">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="blog-hero">
+  <div class="wrap">
+    <span class="tag">WRITING</span>
+    <h1>Blog</h1>
+    <p>{{ page.description }}</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="blog-controls">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search articles…">
+      <select id="categoryFilter" class="filter-select">
+        <option value="">All categories</option>
+      </select>
+    </div>
+
+    <div id="blogGrid" class="blog-grid"></div>
+    <p id="noResults" class="no-results" style="display:none;">No articles match your search.</p>
+
+    <div class="load-more-wrap">
+      <button id="loadMoreBtn" class="btn">Load More</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+    <span>© {{ 'now' | date: "%Y" }} Safdar Ali Soomro</span>
+    <span>Sindh, Pakistan</span>
+  </div>
+</footer>
+
+<script>
+  // Data generated at build time by Jekyll from everything in /_posts/
+  const POSTS = [
+    {% for post in site.posts %}
+    {
+      title: {{ post.title | jsonify }},
+      url: {{ post.url | relative_url | jsonify }},
+      excerpt: {{ post.excerpt | strip_html | truncate: 160 | jsonify }},
+      searchText: {{ post.content | strip_html | truncate: 400 | jsonify }},
+      image: {{ post.image | relative_url | jsonify }},
+      date: {{ post.date | date: "%B %-d, %Y" | jsonify }},
+      category: {{ post.category | default: "" | jsonify }},
+      tags: {{ post.tags | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+
+  const PAGE_SIZE = 6;
+  let shown = PAGE_SIZE;
+  let filtered = POSTS;
+
+  const grid = document.getElementById('blogGrid');
+  const noResults = document.getElementById('noResults');
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  const searchInput = document.getElementById('searchInput');
+  const categoryFilter = document.getElementById('categoryFilter');
+
+  // populate category dropdown
+  const cats = [...new Set(POSTS.map(p => p.category).filter(Boolean))];
+  cats.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    categoryFilter.appendChild(opt);
+  });
+
+  function render() {
+    grid.innerHTML = '';
+    const toShow = filtered.slice(0, shown);
+    toShow.forEach(p => {
+      const card = document.createElement('a');
+      card.href = p.url;
+      card.className = 'card';
+      card.style.textDecoration = 'none';
+      card.style.color = 'inherit';
+      card.innerHTML = `
+        <img class="card-img" src="${p.image}" alt="${p.title}" loading="lazy">
+        <div class="card-body">
+          <div class="card-meta">
+            ${p.category ? `<span class="cat">${p.category}</span>` : ''}
+            <span>${p.date}</span>
+          </div>
+          <h3>${p.title}</h3>
+          <p>${p.excerpt}</p>
+          <span class="read-more">Read More →</span>
+        </div>`;
+      grid.appendChild(card);
+    });
+    noResults.style.display = filtered.length === 0 ? 'block' : 'none';
+    loadMoreBtn.style.display = shown < filtered.length ? 'inline-block' : 'none';
+  }
+
+  function applyFilters() {
+    const q = searchInput.value.trim().toLowerCase();
+    const cat = categoryFilter.value;
+    filtered = POSTS.filter(p => {
+      const matchesQ = !q || p.title.toLowerCase().includes(q) || p.searchText.toLowerCase().includes(q);
+      const matchesCat = !cat || p.category === cat;
+      return matchesQ && matchesCat;
+    });
+    shown = PAGE_SIZE;
+    render();
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+  categoryFilter.addEventListener('change', applyFilters);
+  loadMoreBtn.addEventListener('click', () => { shown += PAGE_SIZE; render(); });
+
+  render();
+</script>
+
+</body>
+</html>
