@@ -1,51 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager · Safdar Ali Soomro</title>
-  <!-- Keeps the CMS itself out of Google's index -->
-  <meta name="robots" content="noindex" />
-</head>
-<body>
-  <!-- Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script>
-    // Custom preview pane so drafts look close to the real dark/copper/teal design
-    var PostPreview = createClass({
-      render: function() {
-        var entry = this.props.entry;
-        var title = entry.getIn(['data', 'title'], '');
-        var category = entry.getIn(['data', 'category'], '');
-        var date = entry.getIn(['data', 'date'], '');
-        var image = this.props.getAsset(entry.getIn(['data', 'image']));
-        return h('div', {},
-          h('header', {style: {padding: '20px 28px', borderBottom: '1px solid #2A3540'}},
-            h('div', {className: 'logo', style: {fontFamily: 'Archivo, sans-serif', fontWeight: 800, fontSize: '17px'}},
-              'SAFDAR ALI ', h('span', {style: {color: '#C87941'}}, 'SOOMRO')
-            )
-          ),
-          h('section', {className: 'post-header', style: {padding: '48px 28px 24px'}},
-            h('span', {className: 'cat', style: {color: '#5C8374', fontWeight: 600, fontSize: '12.5px', letterSpacing: '.04em', textTransform: 'uppercase'}}, category),
-            h('h1', {style: {fontFamily: 'Archivo, sans-serif', fontSize: '36px', marginTop: '14px', color: '#EDEAE3'}}, title),
-            h('div', {style: {marginTop: '18px', color: '#9CA8B4', fontSize: '13.5px'}}, String(date)),
-            image ? h('img', {src: image ? image.toString() : '', style: {width: '100%', maxHeight: '360px', objectFit: 'cover', border: '1px solid #2A3540', marginTop: '24px'}}) : null
-          ),
-          h('div', {className: 'post-body', style: {padding: '28px', maxWidth: '760px', color: '#9CA8B4', fontFamily: 'Inter, sans-serif', lineHeight: 1.6}},
-            this.props.widgetFor('body')
-          )
-        );
-      }
-    });
-
-    CMS.registerPreviewStyle(`
-      body{ background:#12181F; color:#EDEAE3; font-family:'Inter',sans-serif; margin:0; }
-      h1,h2,h3{ font-family:'Archivo',sans-serif; }
-      a{ color:#C87941; }
-      .post-body h2{ font-size:22px; margin:28px 0 12px; color:#EDEAE3; }
-      .post-body p{ margin-bottom:14px; }
-    `);
-    CMS.registerPreviewTemplate('posts', PostPreview);
-  </script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+  </head>
+  <body>
+    <!-- Decap CMS Core Script -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </body>
 </html>
