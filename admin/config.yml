@@ -2,9 +2,7 @@ backend:
   name: github
   repo: safdarali713/safdarali713.github.io   # your GitHub username/repo
   branch: main
-  # ⚠️ REPLACE the line below with YOUR Cloudflare Worker URL from Step 4 of the setup guide.
-  # Example: base_url: https://decap-proxy.safdarali713.workers.dev
-  base_url: https://YOUR-PROXY-URL.workers.dev
+  base_url: https://decap-proxy.decap-proxy-safdar-2026.workers.dev
   auth_endpoint: /auth
 
 # Draft → review → publish workflow.
