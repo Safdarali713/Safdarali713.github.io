@@ -1,0 +1,6 @@
+title: Safdar Ali Soomro
+description: Notes on electrical engineering, AI agents, backend development, and freelancing.
+theme: jekyll-theme-primer
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
