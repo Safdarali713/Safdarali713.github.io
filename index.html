@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +10,7 @@
 <title>Safdar Ali Soomro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/assets/blog.css' | relative_url }}">
 <style>
   :root{
     --bg:#12181F;
@@ -257,7 +261,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#work">Work</a></li>
-        <li><a href="/blog/">Blog</a></li>
+        <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -379,6 +383,38 @@
         <p>Set up as an AI Content Writer on Upwork, with a parallel presence on Fiverr — building freelance income alongside university coursework.</p>
         <div class="stack">UPWORK · FIVERR · CONTENT</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- LATEST BLOG POSTS DYNAMIC SECTION -->
+<section id="latest-posts">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Recent Writing</h2>
+      <span class="ref">FIG. 04</span>
+    </div>
+    <div class="blog-grid">
+      {% for post in site.posts limit:3 %}
+        <a href="{{ post.url | relative_url }}" class="card" style="text-decoration:none; color:inherit;">
+          {% if post.image %}
+            <img class="card-img" src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+          {% endif %}
+          <div class="card-body">
+            <div class="card-meta">
+              {% if post.category %}<span class="cat">{{ post.category }}</span>{% endif %}
+              <span>{{ post.date | date: "%B %-d, %Y" }}</span>
+            </div>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.excerpt | strip_html | truncate: 120 }}</p>
+            <span class="read-more">Read More →</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+    
+    <div style="margin-top:24px;">
+      <a href="{{ '/blog/' | relative_url }}" class="btn">View All Posts</a>
     </div>
   </div>
 </section>
