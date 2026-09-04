@@ -1,6 +1,6 @@
 ---
 title: "From Circuits to Code: An Electrical Engineer's Take on Software"
-date: 2026-09-04T21:46:00.000+05:00
+date: 2026-09-04T22:05:00.000+05:00
 ---
 ![Safdar Ali - Electrical Engineer](/images/blog/whatsapp-image-2025-11-15-at-21.51.45_549bce44.jpg "Safdar Ali")
 
