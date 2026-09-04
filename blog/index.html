@@ -1,4 +1,5 @@
 ---
+layout: null
 title: Blog
 permalink: /blog/
 description: "Notes on electrical engineering, AI agents, backend development, and freelancing — from Safdar Ali Soomro."
@@ -70,7 +71,6 @@ description: "Notes on electrical engineering, AI agents, backend development, a
 </footer>
 
 <script>
-  // Data generated at build time by Jekyll from everything in /_posts/
   const POSTS = [
     {% for post in site.posts %}
     {
@@ -96,7 +96,6 @@ description: "Notes on electrical engineering, AI agents, backend development, a
   const searchInput = document.getElementById('searchInput');
   const categoryFilter = document.getElementById('categoryFilter');
 
-  // populate category dropdown
   const cats = [...new Set(POSTS.map(p => p.category).filter(Boolean))];
   cats.forEach(c => {
     const opt = document.createElement('option');
