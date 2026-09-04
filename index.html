@@ -219,6 +219,13 @@ layout: null
   .proj p{color:var(--ink-dim); max-width:60ch; margin-bottom:10px;}
   .proj .stack{font-size:12.5px; color:var(--teal); letter-spacing:.02em;}
 
+  /* FULL BLOG POST CONTAINER */
+  .post-body p { margin-bottom: 20px; line-height: 1.8; color: var(--ink); }
+  .post-body h2, .post-body h3 { margin: 32px 0 16px; color: var(--ink); }
+  .post-body img { max-width: 100%; height: auto; border-radius: 4px; margin: 20px 0; }
+  .post-body code { background: var(--bg-panel); padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+  .post-body pre { background: var(--bg-panel); padding: 16px; overflow-x: auto; border-radius: 6px; border: 1px solid var(--line); margin-bottom: 24px; }
+
   /* CONTACT */
   .contact-panel{
     padding:40px;
@@ -387,35 +394,38 @@ layout: null
   </div>
 </section>
 
-<!-- LATEST BLOG POSTS DYNAMIC SECTION -->
-<section id="latest-posts">
+<!-- LATEST FULL BLOG POST SECTION -->
+<section id="latest-post">
   <div class="wrap">
     <div class="section-head">
-      <h2>Recent Writing</h2>
+      <h2>Latest Post</h2>
       <span class="ref">FIG. 04</span>
     </div>
-    <div class="blog-grid">
-      {% for post in site.posts limit:3 %}
-        <a href="{{ post.url | relative_url }}" class="card" style="text-decoration:none; color:inherit;">
-          {% if post.image %}
-            <img class="card-img" src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
-          {% endif %}
-          <div class="card-body">
-            <div class="card-meta">
-              {% if post.category %}<span class="cat">{{ post.category }}</span>{% endif %}
-              <span>{{ post.date | date: "%B %-d, %Y" }}</span>
-            </div>
-            <h3>{{ post.title }}</h3>
-            <p>{{ post.excerpt | strip_html | truncate: 120 }}</p>
-            <span class="read-more">Read More →</span>
-          </div>
-        </a>
-      {% endfor %}
-    </div>
-    
-    <div style="margin-top:24px;">
-      <a href="{{ '/blog/' | relative_url }}" class="btn">View All Posts</a>
-    </div>
+
+    {% assign latest = site.posts.first %}
+    {% if latest %}
+      <article style="max-width: 760px; margin: 0 auto;">
+        <span class="tag" style="text-transform: uppercase;">{{ latest.category | default: "Writing" }}</span>
+        <h1 style="font-size: clamp(28px, 4vw, 42px); margin: 12px 0 8px; line-height: 1.2;">{{ latest.title }}</h1>
+        <p style="color: var(--ink-dim); font-size: 14px; margin-bottom: 28px;">
+          Published on {{ latest.date | date: "%B %-d, %Y" }}
+        </p>
+
+        {% if latest.image %}
+          <img src="{{ latest.image | relative_url }}" alt="{{ latest.title }}" style="width: 100%; height: auto; border-radius: 6px; margin-bottom: 28px; border: 1px solid var(--line);">
+        {% endif %}
+
+        <div class="post-body" style="font-size: 17px;">
+          {{ latest.content }}
+        </div>
+      </article>
+
+      <div style="margin-top: 48px; text-align: center; border-top: 1px solid var(--line); padding-top: 24px;">
+        <a href="{{ '/blog/' | relative_url }}" class="btn">View All Previous Posts →</a>
+      </div>
+    {% else %}
+      <p style="color: var(--ink-dim);">No posts published yet.</p>
+    {% endif %}
   </div>
 </section>
 
